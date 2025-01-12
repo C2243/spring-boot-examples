@@ -1,0 +1,27 @@
+services:
+  zipkin:
+    image: 'openzipkin/zipkin:latest'
+    ports:
+      - '9411:9411'
+  service-1:
+    image: 'busybox:latest'
+    ports:
+      - '8001:8001'
+    command:
+        - sh
+        - -c
+        - |
+          mkdir /www/
+          echo "Service 1" > /www/service
+          httpd -f -p 8001 -h /www/
+  service-2:
+    image: 'busybox:latest'
+    ports:
+      - '8002:8002'
+    command:
+      - sh
+      - -c
+      - |
+        mkdir /www/
+        echo "Service 2" > /www/service
+        httpd -f -p 8002 -h /www/
